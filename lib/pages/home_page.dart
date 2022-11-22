@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/data/local_data/local_data.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
@@ -50,9 +51,9 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              'Кыргызстанда 7 область барбы?',
-              style: TextStyle(
+            Text(
+              LocalData().surooAlipKel(),
+              style: const TextStyle(
                 fontSize: 40,
                 color: Colors.white,
               ),
