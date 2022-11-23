@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:quiz_app/models/quiz_model.dart';
 
 class LocalData {
@@ -17,10 +19,28 @@ class LocalData {
     ),
   ];
   String surooAlipKel() {
-    return suroolorJooptor[katarNomer].suroolor;
+    if (katarNomer < suroolorJooptor.length) {
+      return suroolorJooptor[katarNomer].suroolor;
+    }
+    return '';
   }
 
   bool joopAlipKel() {
-    return suroolorJooptor[katarNomer].jooptor;
+    if (katarNomer < suroolorJooptor.length) {
+      return suroolorJooptor[katarNomer].jooptor;
+    }
+    return null;
+  }
+
+  void suroonuOtkoz() {
+    katarNomer = katarNomer + 1;
+    log('katarNomer ====> $katarNomer');
+    // katarNomer++;
+  }
+
+  void reset() {
+    katarNomer = 0;
   }
 }
+
+final LocalData localData = LocalData();

@@ -11,17 +11,57 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String adamdinAty = 'Kubat';
   List<Icon> icons = <Icon>[];
-  @override
-  void initState() {
-    icons.add(
-      const Icon(
-        Icons.favorite,
-        color: Colors.red,
-        size: 50.0,
-        semanticLabel: 'Text to announce in accessibility modes',
-      ),
-    );
-    super.initState();
+  // @override
+  // void initState() {
+  //   icons.add(
+  //     const Icon(
+  //       Icons.favorite,
+  //       color: Colors.red,
+  //       size: 50.0,
+  //     ),
+  //   );
+  //   super.initState();
+  // }
+
+  void userdinJoobu(bool userAnswer) {
+    bool tuuraJoop = localData.joopAlipKel();
+    if (tuuraJoop == userAnswer) {
+      icons.add(
+        const Icon(
+          Icons.check,
+          color: Colors.green,
+          size: 50.0,
+        ),
+      );
+    } else {
+      icons.add(
+        const Icon(
+          Icons.clear,
+          color: Colors.red,
+          size: 50.0,
+        ),
+      );
+    }
+
+    localData.suroonuOtkoz();
+    setState(() {});
+
+    /// Variant 2
+    // tuuraJoop == userAnswer
+    //     ? icons.add(
+    //         const Icon(
+    //           Icons.check,
+    //           color: Colors.green,
+    //           size: 50.0,
+    //         ),
+    //       )
+    //     : icons.add(
+    //         const Icon(
+    //           Icons.clear,
+    //           color: Colors.red,
+    //           size: 50.0,
+    //         ),
+    //       );
   }
 
   @override
@@ -51,26 +91,35 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              LocalData().surooAlipKel(),
-              style: const TextStyle(
-                fontSize: 40,
-                color: Colors.white,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            InkWell(
-              onTap: () {
-                setState(() {});
-                icons.add(
-                  const Icon(
-                    Icons.check,
-                    color: Colors.green,
-                    size: 50.0,
-                    semanticLabel: 'Text to announce in accessibility modes',
+            localData.surooAlipKel() == ''
+                ? GestureDetector(
+                    onTap: () {
+                      setState(() {});
+                      localData.reset();
+                      icons = [];
+                    },
+                    child: Container(
+                      color: Colors.teal,
+                      child: const Padding(
+                        padding: EdgeInsets.all(12.0),
+                        child: Text(
+                          'Кайра башта суроо түгөндү!',
+                          style: TextStyle(fontSize: 25),
+                        ),
+                      ),
+                    ),
+                  )
+                : Text(
+                    // LocalData().surooAlipKel(),
+                    localData.surooAlipKel(),
+                    style: const TextStyle(
+                      fontSize: 40,
+                      color: Colors.white,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                );
-              },
+            InkWell(
+              onTap: () => userdinJoobu(true),
               child: Container(
                 margin: const EdgeInsets.only(top: 50),
                 color: const Color(0xff4CAF52),
@@ -90,18 +139,7 @@ class _HomePageState extends State<HomePage> {
               height: 20,
             ),
             InkWell(
-              onTap: () {
-                setState(() {
-                  icons.add(
-                    const Icon(
-                      Icons.clear,
-                      color: Colors.red,
-                      size: 50.0,
-                      semanticLabel: 'Text to announce in accessibility modes',
-                    ),
-                  );
-                });
-              },
+              onTap: () => userdinJoobu(false),
               child: Container(
                 color: const Color(0xffF54335),
                 child: const Padding(
